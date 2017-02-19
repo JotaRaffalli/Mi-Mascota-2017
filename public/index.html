@@ -19,6 +19,9 @@
 	
 	<!-- Angular Material Design Css -->
 	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+
+	<!-- Firebase -->
+	<script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
 			
 </head>
 
@@ -28,11 +31,11 @@
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 	  <header class="mdl-layout__header">
 	    <div class="mdl-layout__header-row">
-	      <!-- Title -->
+	      <!-- Titulo -->
 	      <span class="mdl-layout-title">Mi Mascota y Yo </span>
-	      <!-- Add spacer, to align navigation to the right -->
+	      <!-- Alinia la barra de navegación -->
 	      <div class="mdl-layout-spacer"></div>
-	      <!-- Navigation. We hide it in small screens. -->
+	      <!-- Se oculta la barra en pantallas pequeñas -->
 	      <nav class="mdl-navigation mdl-layout--large-screen-only">
 	        <a class="mdl-navigation__link" href="http://animals.tumblr.com/" target="_blank">Ver Tumblr</a>
 	        <a class="mdl-navigation__link" href="/historial">Ver historial</a>
@@ -48,11 +51,12 @@
 	  </div>
 	  <main class="mdl-layout__content">
 	    <div class="page-content">
+	<!-- Fin Barra de navegación -->	
 
 	    <!-- Formulario de Login Con Angular  -->
 	
-			<div style="padding-top: 50px" ng-app="LoginForm">
-		    <md-content  ng-app="LoginForm" ng-controller="Ctrl" layout="row" layout-align="space-around" layout-padding="layout-padding" ng-cloak="ng-cloak" class="login-form">
+			<div style="padding-top: 50px" >
+		    <md-content    layout="row" layout-align="space-around" layout-padding="layout-padding" ng-cloak="ng-cloak" class="login-form">
 		      <md-card  flex="flex" flex-gt-sm="50" flex-gt-md="33">
 		        <div>
 		          <div class="md-toolbar-tools">
@@ -63,20 +67,20 @@
 		          <form name="Form">
 		            <md-input-container class="md-block">
 		              <label>Correo</label>
-		              <input type="text" name="email" ng-model="vm.formData.email" placeholder="" required=""/>
+		              <input type="text" name="email" ng-model="email" placeholder="" required=""/>
 		              <div ng-messages="Form.email.$error" role="alert" multiple="">
 		                <div ng-message="required" class="my-message">Introduce tu correo electrónico.</div>
 		              </div>
 		            </md-input-container>
 		            <md-input-container class="md-block">
 		              <label>Contraseña</label>
-		              <input type="password" name="password" ng-model="vm.formData.password" placeholder="" required="" md-maxlength="8"/>
+		              <input type="password" name="password" ng-model="password" placeholder="" required="" md-maxlength="8"/>
 		              <div ng-messages="Form.password.$error" role="alert" multiple="">
 		                <div ng-message="required" class="my-message">Por favor introduce tu contraseña.</div>
 		                <div ng-message="md-maxlength" class="my-message">Es muy larga,</div>
 		              </div>
 		            </md-input-container>
-		            <md-button  ng-disabled="!Form.$valid" ng-click="vm.submit()" class="md-raised md-primary">&nbsp Login &nbsp</md-button>
+		            <md-button  ng-disabled="!Form.$valid" ng-click="login()" class="md-raised md-primary">&nbsp Login &nbsp</md-button>
 		          </form>
 		        </md-card-content>
 		      </md-card>
@@ -90,7 +94,6 @@
 
 
 
-
 	<!-- Angular Material Design -->
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-animate.min.js"></script>
@@ -98,17 +101,68 @@
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-aria.min.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
 	<script src="//cdn.jsdelivr.net/angular-material-icons/0.4.0/angular-material-icons.min.js"></script>
+	
+	<!-- Firebase app -->
+    <script src="dependencies/Js/FireApp.js"></script>
+	
+	<!-- Firebase Extra -->
+	<script src="https://cdn.firebase.com/libs/angularfire/0.8.0/angularfire.min.js"></script>
+	<script src="https://cdn.firebase.com/js/simple-login/1.6.2/firebase-simple-login.js"></script>
 
+	<!-- Angular app -->
+    <script src="dependencies/Js/app.js"></script>
 
-
-	<!-- Angular: Guarda el formulario y lo envia -->
+	<!-- Formulario Angular: Guarda el formulario y lo envia -->
 	<script>
 
 
-		var app = angular.module('LoginForm',['ngMaterial','ngAnimate','ngAria','ngMessages']).controller('Ctrl', function($scope)
-		{
 
-		});
+	var ref = new Firebase('https://mi-mascota-2017.firebaseio.com');
+var auth = new FirebaseSimpleLogin(ref, function(error, user) {
+  if (error) {
+    console.log('Authentication error: ', error);
+  } else if (user) {
+    console.log('User ' + user.id + ' authenticated via the ' + user.provider + ' provider!');
+  } else {
+    console.log("User is logged out.")
+  }
+});
+
+
+
+		// var app = angular.module('LoginForm',['ngMaterial','ngAnimate','ngAria','ngMessages','firebase']);
+
+		// app.factory("Auth", ["$firebaseAuth", function($firebaseAuth) {
+		//     var ref = new Firebase("https://mi-mascota-2017.firebaseio.com/");
+		//     return $firebaseAuth(ref);
+		//   }
+		// ]);
+
+		// app.controller('Ctrl', ['$scope',  '$http', 'Auth', function($scope,  $http, Auth)
+		// {
+
+		// 		$scope.auth = Auth;
+		// 	    $scope.auth.$onAuth(function(authData) {
+		// 	    $scope.authData = authData;
+		// 	    });
+		// 	    //Funcion del login
+		// 	    $scope.login = function() {
+		// 	      Auth.$authWithPassword({
+		// 	        email: $scope.email,
+		// 	        password: $scope.password
+		// 	      })
+		// 	      .then(function(authData) {
+		// 	        console.log('Logged in as:', authData.uid);
+		// 	        //$state.go('profile');
+		// 	      })
+		// 	      .catch(function(err) {
+		// 	        console.log('error:',err);
+		// 	        //$state.go('login');
+		// 	      });
+		// 	    };
+
+		// }]);
+
 	</script>
 
 </body>
