@@ -1,46 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Mi Mascota 2017</title>
+	<title>Login | Mi mascota y Yo</title>
 
+	<!-- Material Design -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
 	<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+	<!-- Angular Material Design Custom Css -->
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+	<!-- Angular Material Design -->
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-animate.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-messages.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-aria.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+	<script src="//cdn.jsdelivr.net/angular-material-icons/0.4.0/angular-material-icons.min.js"></script>
 
+	
+
+	</style>
+		
 </head>
+
 <body>
 
 
-<!-- Simple header with fixed tabs. -->
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
-            mdl-layout--fixed-tabs">
-  <header class="mdl-layout__header">
-    <div class="mdl-layout__header-row">
-      <!-- Title -->
-      <span class="mdl-layout-title">Title</span>
-    </div>
-    <!-- Tabs -->
-    <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-      <a href="#fixed-tab-1" class="mdl-layout__tab is-active">Tab 1</a>
-      <a href="#fixed-tab-2" class="mdl-layout__tab">Tab 2</a>
-      <a href="#fixed-tab-3" class="mdl-layout__tab">Tab 3</a>
-    </div>
-  </header>
-  <div class="mdl-layout__drawer">
-    <span class="mdl-layout-title">Title</span>
-  </div>
-  <main class="mdl-layout__content">
-    <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
-      <div class="page-content"><!-- Your content goes here --></div>
-    </section>
-    <section class="mdl-layout__tab-panel" id="fixed-tab-2">
-      <div class="page-content"><!-- Your content goes here --></div>
-    </section>
-    <section class="mdl-layout__tab-panel" id="fixed-tab-3">
-      <div class="page-content"><!-- Your content goes here --></div>
-    </section>
-  </main>
-</div>
+<!-- Formulario de Login Con Angular  -->
+	
+	<div ng-app="LoginForm">
+
+    <md-content ng-app="LoginForm" ng-controller="Ctrl" layout="row" layout-align="space-around" layout-padding="layout-padding" ng-cloak="ng-cloak" class="login-form">
+      <md-card  flex="flex" flex-gt-sm="50" flex-gt-md="33">
+        <md-toolbar >
+          <div class="md-toolbar-tools">
+            <h2><span>Concurso Mi Mascota Login</span></h2>
+          </div>
+        </md-toolbar>
+        <md-card-content>
+          <form name="Form">
+            <md-input-container class="md-block">
+              <label>Correo</label>
+              <input type="text" name="email" ng-model="vm.formData.email" placeholder="" required=""/>
+              <div ng-messages="Form.email.$error" role="alert" multiple="">
+                <div ng-message="required" class="my-message">Introduce tu correo electrónico.</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+              <label>Contraseña</label>
+              <input type="password" name="password" ng-model="vm.formData.password" placeholder="" required="" md-maxlength="16"/>
+              <div ng-messages="Form.password.$error" role="alert" multiple="">
+                <div ng-message="required" class="my-message">Por favor introduce tu contraseña.</div>
+                <div ng-message="md-maxlength" class="my-message">Es muy larga :c</div>
+              </div>
+            </md-input-container>
+            <md-button ng-disabled="!Form.$valid" ng-click="vm.submit()" class="md-raised md-primary">&nbsp Login &nbsp</md-button>
+          </form>
+        </md-card-content>
+      </md-card>
+    </md-content>
+
+	<!-- Angular: Guarda el formulario y lo envia -->
+	<script>
+		var app = angular.module('LoginForm',['ngMaterial','ngAnimate','ngAria','ngMessages']).controller('Ctrl', function($scope)
+		{
+
+		});
+	</script>
+
 
 
 </body>
