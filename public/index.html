@@ -53,45 +53,37 @@
 	    <div class="page-content">
 	<!-- Fin Barra de navegación -->	
 
-	    <!-- Formulario de Login Con Angular  -->
-	
-			<div style="padding-top: 50px" >
-		    <md-content    layout="row" layout-align="space-around" layout-padding="layout-padding" ng-cloak="ng-cloak" class="login-form">
-		      <md-card  flex="flex" flex-gt-sm="50" flex-gt-md="33">
-		        <div>
-		          <div class="md-toolbar-tools">
-		            <h2><span><i class="material-icons">pets</i>    Concurso Mi Mascota Login</span></h2>
-		          </div>
-		        </div>
-		        <md-card-content>
-		          <form name="Form">
-		            <md-input-container class="md-block">
-		              <label>Correo</label>
-		              <input type="text" name="email" ng-model="email" placeholder="" required=""/>
-		              <div ng-messages="Form.email.$error" role="alert" multiple="">
-		                <div ng-message="required" class="my-message">Introduce tu correo electrónico.</div>
-		              </div>
-		            </md-input-container>
-		            <md-input-container class="md-block">
-		              <label>Contraseña</label>
-		              <input type="password" name="password" ng-model="password" placeholder="" required="" md-maxlength="8"/>
-		              <div ng-messages="Form.password.$error" role="alert" multiple="">
-		                <div ng-message="required" class="my-message">Por favor introduce tu contraseña.</div>
-		                <div ng-message="md-maxlength" class="my-message">Es muy larga,</div>
-		              </div>
-		            </md-input-container>
-		            <md-button  ng-disabled="!Form.$valid" ng-click="login()" class="md-raised md-primary">&nbsp Login &nbsp</md-button>
-		          </form>
-		        </md-card-content>
-		      </md-card>
-		    </md-content>
-		    </div>
-	    <!-- Fin Formulario de Login Con Angular  -->
+	    <!-- Formulario de Login -->
+			<div style="padding-top: 50px" align="center" class="mdl-layout mdl-js-layout mdl-color--grey-100">
+				<main class="mdl-layout__content">
+					<div class="mdl-card mdl-shadow--6dp">
+						<div class="mdl-card__title mdl-color--primary mdl-color-text--white">
+							<h3 class="mdl-card__title-text"><i class="material-icons">pets</i>&nbsp;Mi Mascota y Yo</h3>
+						</div>
+				  	<div class="mdl-card__supporting-text">
+							<form>
+								<div class="mdl-textfield mdl-js-textfield">
+									<input class="mdl-textfield__input" type="text" id="email" />
+									<label class="mdl-textfield__label" for="username">Introduce tu correo electrónico.</label>
+								</div>
+								<div class="mdl-textfield mdl-js-textfield">
+									<input class="mdl-textfield__input" type="password" id="contraseña" />
+									<label class="mdl-textfield__label" for="userpass">Contraseña</label>
+								</div>
+							</form>
+						</div>
+						<div class="mdl-card__actions mdl-card--border">
+							<button id="btnLogin" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Iniciar sesión</button>
+							<button id="btnSignup" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Crear Cuenta</button>
+						</div>
+					</div>
+				</main>
+			</div>	
+	    <!-- Fin Formulario de Login -->
 
 	    </div>
 	  </main>
 	</div>
-
 
 
 	<!-- Angular Material Design -->
@@ -102,68 +94,15 @@
 	<script src="//ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
 	<script src="//cdn.jsdelivr.net/angular-material-icons/0.4.0/angular-material-icons.min.js"></script>
 	
-	<!-- Firebase app -->
-    <script src="dependencies/Js/FireApp.js"></script>
-	
 	<!-- Firebase Extra -->
 	<script src="https://cdn.firebase.com/libs/angularfire/0.8.0/angularfire.min.js"></script>
 	<script src="https://cdn.firebase.com/js/simple-login/1.6.2/firebase-simple-login.js"></script>
-
+	
+	<!-- Firebase app -->
+    <script src="dependencies/Js/FireApp.js"></script>
+	
 	<!-- Angular app -->
     <script src="dependencies/Js/app.js"></script>
-
-	<!-- Formulario Angular: Guarda el formulario y lo envia -->
-	<script>
-
-
-
-	var ref = new Firebase('https://mi-mascota-2017.firebaseio.com');
-var auth = new FirebaseSimpleLogin(ref, function(error, user) {
-  if (error) {
-    console.log('Authentication error: ', error);
-  } else if (user) {
-    console.log('User ' + user.id + ' authenticated via the ' + user.provider + ' provider!');
-  } else {
-    console.log("User is logged out.")
-  }
-});
-
-
-
-		// var app = angular.module('LoginForm',['ngMaterial','ngAnimate','ngAria','ngMessages','firebase']);
-
-		// app.factory("Auth", ["$firebaseAuth", function($firebaseAuth) {
-		//     var ref = new Firebase("https://mi-mascota-2017.firebaseio.com/");
-		//     return $firebaseAuth(ref);
-		//   }
-		// ]);
-
-		// app.controller('Ctrl', ['$scope',  '$http', 'Auth', function($scope,  $http, Auth)
-		// {
-
-		// 		$scope.auth = Auth;
-		// 	    $scope.auth.$onAuth(function(authData) {
-		// 	    $scope.authData = authData;
-		// 	    });
-		// 	    //Funcion del login
-		// 	    $scope.login = function() {
-		// 	      Auth.$authWithPassword({
-		// 	        email: $scope.email,
-		// 	        password: $scope.password
-		// 	      })
-		// 	      .then(function(authData) {
-		// 	        console.log('Logged in as:', authData.uid);
-		// 	        //$state.go('profile');
-		// 	      })
-		// 	      .catch(function(err) {
-		// 	        console.log('error:',err);
-		// 	        //$state.go('login');
-		// 	      });
-		// 	    };
-
-		// }]);
-
-	</script>
 
 </body>
 </html>
