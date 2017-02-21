@@ -16,19 +16,75 @@
   	  // Sesión form: Obtener los elementos
   	  var btnLogin = document.getElementById("btnLogin");
   	  var btnSignup = document.getElementById("btnSignup");
+  	  var btnLogout = document.getElementById("btnLogout");
 	  var txtEmail = document.getElementById("email");
 	  var txtContraseña = document.getElementById("contraseña");
 
-	  // Evento de Login
+	  // Mensajes de Mi Toastr ♥
+	  	toastr.options = {
+		  "closeButton": false,
+		  "positionClass": "toast-bottom-right",
+		}
+
+
+	  // -------Evento de Login-------
 	  btnLogin.addEventListener("click" , function(){
 	  	// Valores de los campos
 	  	var email = txtEmail.value;
 	  	var contraseña = txtContraseña.value;
 	  	// Autentica
-	  	var promesa = auth.signInWithEmailAndPassword(email, contraseña);
+	  	if (!email) {
+        toastr.error('Se requiere un correo');
+        txtEmail.focus();
+        txtEmail.parentNode.classList.add('is-dirty');                        
+      	} else if (!contraseña){
+        toastr.error('Se requiere una contraseña');
+        txtContraseña.focus();
+        txtContraseña.parentNode.classList.add('is-dirty');                        
+      	} else {
+        var promesa = auth.signInWithEmailAndPassword(email, contraseña);
+        toastr.success('Sesión Iniciada');
 	  	promesa.catch(e => console.log(e.message));
+      	}
+	  });
+
+	  // -------Evento de Logout-------
+	  btnLogout.addEventListener("click" , function(){
+	  	auth.signOut();
+	  	
+	  });
+
+	  // -------Evento de Signup-------
+	  btnSignup.addEventListener("click" , function(){
+	  	// Valores de los campos
+	  	var email = txtEmail.value;
+	  	var contraseña = txtContraseña.value;
+	  	// Autentica
+	  	if (!email) {
+        toastr.error('Se requiere un correo');
+        txtEmail.focus();
+        txtEmail.parentNode.classList.add('is-dirty');                        
+      	} else if (!contraseña){
+        toastr.error('Se requiere una contraseña');
+        txtContraseña.focus();
+        txtContraseña.parentNode.classList.add('is-dirty');                        
+      	} else {
+        var promesa = auth.createUserWithEmailAndPassword(email, contraseña);
+	  	promesa.catch(e => toastr.error(e.message));
+      	}
+	  	
 
 	  });
 
-	  // Evento de Signup
+	  // -------Verificar estado-------
+	  auth.onAuthStateChanged(function(user) {
+	  if (user) {
+	    console.log(user);
+	    console.log("Sesión Iniciada:  "+user.email);
+
+	  } else {
+	    console.log('sesion no iniciada');
+	  }
+	});
+
 }());
