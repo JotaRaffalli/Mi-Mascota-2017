@@ -50,6 +50,8 @@
 	  // -------Evento de Logout-------
 	  btnLogout.addEventListener("click" , function(){
 	  	auth.signOut();
+	  	toastr.success('Sesión Cerrada');
+
 	  	
 	  });
 
