@@ -32,18 +32,34 @@
 	  	// Valores de los campos
 	  	var email = txtEmail.value;
 	  	var contraseña = txtContraseña.value;
-	  	// Autentica
+	  	// Intenta Autenticar
 	  	if (!email) {
-        toastr.error('Se requiere un correo');
-        txtEmail.focus();
-        txtEmail.parentNode.classList.add('is-dirty');                        
+	        toastr.error('Se requiere un correo');
+	        txtEmail.focus();
+	        txtEmail.parentNode.classList.add('is-dirty');                        
       	} else if (!contraseña){
-        toastr.error('Se requiere una contraseña');
-        txtContraseña.focus();
-        txtContraseña.parentNode.classList.add('is-dirty');                        
+	        toastr.error('Se requiere una contraseña');
+	        txtContraseña.focus();
+	        txtContraseña.parentNode.classList.add('is-dirty');                        
       	} else {
-        var promesa = auth.signInWithEmailAndPassword(email, contraseña);
-	  	promesa.catch(e => console.log(e.message));
+	      	// Login
+	        var promesa = auth.signInWithEmailAndPassword(email, contraseña);
+	        promesa.then(function(firebaseUser) {
+			  // Exito 
+			  window.location = 'formulario.html';
+			});
+		  	promesa.catch(function(error) {
+		  		//Error
+			  var errorCode = error.code;
+			  var errorMessage = error.message;
+			  if (errorCode === 'auth/wrong-password') {
+			    toastr.error('Contraseña Incorrecta');
+			  } else {
+			    toastr.error('Error:  '+errorMessage);
+			  }
+			  console.log(error);
+
+		    	});
       	}
 	  });
 
@@ -60,18 +76,42 @@
 	  	// Valores de los campos
 	  	var email = txtEmail.value;
 	  	var contraseña = txtContraseña.value;
-	  	// Autentica
+	  	// Verifica Campos
 	  	if (!email) {
-        toastr.error('Se requiere un correo');
-        txtEmail.focus();
-        txtEmail.parentNode.classList.add('is-dirty');                        
+	        toastr.error('Se requiere un correo');
+	        txtEmail.focus();
+	        txtEmail.parentNode.classList.add('is-dirty');                        
       	} else if (!contraseña){
-        toastr.error('Se requiere una contraseña');
-        txtContraseña.focus();
-        txtContraseña.parentNode.classList.add('is-dirty');                        
+	        toastr.error('Se requiere una contraseña');
+	        txtContraseña.focus();
+	        txtContraseña.parentNode.classList.add('is-dirty');                        
       	} else {
-        var promesa = auth.createUserWithEmailAndPassword(email, contraseña);
-	  	promesa.catch(e => toastr.error(e.message));
+        // Crea el usuario y asigna su correo y id
+
+
+        var promesa = auth.createUserWithEmailAndPassword(email, contraseña).then(function(){
+        	var user = auth.currentUser;
+        	firebase.database().ref('usuario/'+user.uid).set({correo : email}).catch(function(error) {
+        		alert(error.code);
+        	});
+        });
+	  	promesa.then(function(firebaseUser) {
+			  // Exito 
+			  window.location = 'formulario.html';
+			});
+		promesa.catch(function(error) {
+		  		//Error
+			  var errorCode = error.code;
+			  var errorMessage = error.message;
+			  console.log(error);
+			  toastr.error('Error al crear usuario');
+			  if(errorCode === 'auth/weak-password'){
+			    alert('Contraseña debe tener mínimo 6 caracteres');
+			  } else {
+			    alert(errorMessage);
+			  }
+
+		    });
       	}
 	  	
 
@@ -83,8 +123,7 @@
 	  	$('#btnLogout').show();
 	    console.log(user);
 	    console.log("Sesión Iniciada:  "+user.email);
-	    toastr.success('Sesión Iniciada');
-	    window.location = 'formulario.html';
+	    //toastr.success('Sesión Iniciada');
 
 	  } else {
 	  	$('#btnLogout').hide();
