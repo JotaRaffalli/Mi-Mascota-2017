@@ -67,6 +67,7 @@
 	  btnLogout.addEventListener("click" , function(){
 	  	auth.signOut();
 	  	toastr.success('Sesión Cerrada');
+	  	document.location.href = 'index.html'
 
 	  	
 	  });
@@ -128,7 +129,24 @@
 	  } else {
 	  	$('#btnLogout').hide();
 	    console.log('sesion no iniciada');
+
 	  }
 	});
 
+	  // -------Guarda la informacion del usuario -------
+	  var user = firebase.auth().currentUser;
+	  var name, correo, uid;
+
+		if (user != null) {
+		  email = user.correo;
+		}
+
+	  // -------Display del correo -------
+	  function Correo () {
+	  	var user = firebase.auth().currentUser;
+	  	if (user != null) {
+		  email = user.correo;
+		  document.getElementById('correo').innerHTML = correo;;
+		}
+	  }
 }());
