@@ -43,7 +43,6 @@
         txtContraseña.parentNode.classList.add('is-dirty');                        
       	} else {
         var promesa = auth.signInWithEmailAndPassword(email, contraseña);
-        toastr.success('Sesión Iniciada');
 	  	promesa.catch(e => console.log(e.message));
       	}
 	  });
@@ -79,10 +78,14 @@
 	  // -------Verificar estado-------
 	  auth.onAuthStateChanged(function(user) {
 	  if (user) {
+	  	$('#btnLogout').show();
 	    console.log(user);
 	    console.log("Sesión Iniciada:  "+user.email);
+	    toastr.success('Sesión Iniciada');
+	    window.location = 'formulario.html';
 
 	  } else {
+	  	$('#btnLogout').hide();
 	    console.log('sesion no iniciada');
 	  }
 	});

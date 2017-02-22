@@ -1,14 +1,14 @@
 [debug] ----------------------------------------------------------------------
-[debug] Command:      C:\Program Files\nodejs\node.exe C:\Users\rocco\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase serve
+[debug] Command:      C:\Program Files\nodejs\node.exe C:\Users\Jose\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase serve
 [debug] CLI Version:  3.3.0
 [debug] Platform:     win32
 [debug] Node Version: v4.5.0
-[debug] Time:         Tue Feb 21 2017 22:24:46 GMT-0400 (Hora estándar del Atlántico)
+[debug] Time:         Tue Feb 21 2017 23:20:58 GMT-0400 (Venezuela Standard Time)
 [debug] ----------------------------------------------------------------------
 [debug] 
 [info] Starting Firebase development server...
 [info] 
-[info] Project Directory: C:\Users\rocco\Desktop\Mini Proyecto
+[info] Project Directory: C:\Users\Jose\Documents\Coding\Sistemas De Información\Practica 1\Mi-Mascota-2017
 [info] Public Directory: public
 [info] 
 [info] Server listening at: http://localhost:5000
