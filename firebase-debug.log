@@ -1,23 +1,14 @@
 [debug] ----------------------------------------------------------------------
-[debug] Command:      C:\Program Files\nodejs\node.exe C:\Users\Jose\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase deploy
+[debug] Command:      C:\Program Files\nodejs\node.exe C:\Users\rocco\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase serve
 [debug] CLI Version:  3.3.0
 [debug] Platform:     win32
 [debug] Node Version: v4.5.0
-[debug] Time:         Wed Feb 22 2017 19:01:04 GMT-0400 (Venezuela Standard Time)
+[debug] Time:         Wed Feb 22 2017 22:09:19 GMT-0400 (Hora estándar del Atlántico)
 [debug] ----------------------------------------------------------------------
 [debug] 
-[debug] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase"]
-[debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/mi-mascota-2017  
- Wed Feb 22 2017 19:01:04 GMT-0400 (Venezuela Standard Time)
-[debug] <<< HTTP RESPONSE 200
-[debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/mi-mascota-2017/tokens  
- Wed Feb 22 2017 19:01:05 GMT-0400 (Venezuela Standard Time)
-[debug] <<< HTTP RESPONSE 200
+[info] Starting Firebase development server...
 [info] 
-[info] === Deploying to 'mi-mascota-2017'...
+[info] Project Directory: C:\Users\rocco\Desktop\Mini Proyecto
+[info] Public Directory: public
 [info] 
-[info] i  deploying database, hosting
-[info] +  database: rules ready to deploy.
-[info] i  hosting: preparing public directory for upload...
-[debug] >>> HTTP REQUEST PUT https://deploy.firebase.com/v1/hosting/mi-mascota-2017/uploads/-Kdc2cd6CF4FGeFHuTD0?fileCount=17&message=  
- Wed Feb 22 2017 19:01:09 GMT-0400 (Venezuela Standard Time)
+[info] Server listening at: http://localhost:5000

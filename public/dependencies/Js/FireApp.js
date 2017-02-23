@@ -20,6 +20,17 @@
 	  var txtEmail = document.getElementById("email");
 	  var txtContraseña = document.getElementById("contraseña");
 
+	  // Formulario form: Obtener los elementos
+	  var txtUNombre = document.getElementById("UNombre");
+  	  var txtUApellido = document.getElementById("UApellido");
+  	  var txtUCedula = document.getElementById("UCedula");
+	  var txtUTelefono = document.getElementById("UTelefono");
+	  var txtPNombre = document.getElementById("PNombre");
+	  var txtPEdad = document.getElementById("PEdad");
+	  var txtPHistoria = document.getElementById("PHistoria");
+	  var txtPAdopcion = document.getElementById("PAdopcion");
+	  var txtenviarform = document.getElementById("btn-submit");
+
 	  // Mensajes de Mi Toastr ♥
 	  	toastr.options = {
 		  "closeButton": false,
@@ -117,6 +128,37 @@
 	  	
 
 	  });
+
+	  //------Evento Enviar Formulario------
+
+	  	enviarform.addEventListener("click" , function(){
+	  		
+	  		var user = auth.currentUser;
+	  		var UNombre = txtUNombre.value;
+  	  		var UApellido = txtUApellido.value;
+  	  		var UCedula = txtUCedula.value;
+	  		var UTelefono = txtUTelefono.value;
+	  		var PNombre = txtPNombre.value;
+	  		var PEdad = txtPEdad.value;
+	  		var PHistoria = txtPHistoria.value;
+	  		var PAdopcion = txtPAdopcion.value;
+
+	  		firebase.database().ref('usuario/'+user.uid).set({
+	  			
+	  			NombreUsuario : UNombre,
+	  			ApellidoUsuario : UApellido,
+	  			CedulaUsuario : UCedula,
+	  			TelfUsuario : UTelefono,
+	  			NombreMascota : PNombre,
+	  			EdadMascota : PEdad,
+	  			Historia : PHistoria,
+	  			Adopcion : PAdopcion
+
+	  		}).catch(function(error) {
+        		alert(error.code);
+        	});
+	  	});
+
 
 	  // -------Verificar estado-------
 	  auth.onAuthStateChanged(function(user) {
