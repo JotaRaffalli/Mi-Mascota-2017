@@ -29,7 +29,7 @@
 	  var txtPEdad = document.getElementById("PEdad");
 	  var txtPHistoria = document.getElementById("PHistoria");
 	  var txtPAdopcion = document.getElementById("PAdopcion");
-	  var txtenviarform = document.getElementById("btn-submit");
+	  var enviarform = document.getElementById("btn-submit");
 
 	  // Mensajes de Mi Toastr ♥
 	  	toastr.options = {
@@ -131,7 +131,8 @@
 
 	  //------Evento Enviar Formulario------
 
-	  	enviarform.addEventListener("click" , function(){
+	  	if (enviarform) {
+		  enviarform.addEventListener("click" , function(){
 	  		
 	  		var user = auth.currentUser;
 	  		var UNombre = txtUNombre.value;
@@ -143,7 +144,7 @@
 	  		var PHistoria = txtPHistoria.value;
 	  		var PAdopcion = txtPAdopcion.value;
 
-	  		firebase.database().ref('usuario/'+user.uid).set({
+	  		firebase.database().ref('usuario/'+user.uid).push({
 	  			
 	  			NombreUsuario : UNombre,
 	  			ApellidoUsuario : UApellido,
@@ -157,7 +158,11 @@
 	  		}).catch(function(error) {
         		alert(error.code);
         	});
+
+        	//window.location = 'index.html';
 	  	});
+		};
+	  	
 
 
 	  // -------Verificar estado-------

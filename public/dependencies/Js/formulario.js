@@ -1,4 +1,3 @@
-// Recorrer los elementos y hacer que onchange ejecute una funcion para comprobar el valor de ese input
 (function(){
 
 var formulario = document.formulario_registro,
@@ -101,6 +100,7 @@ var enviar = function(e){
 	} else {
 		console.log('Envia');
 		e.preventDefault();
+		window.location.href = "index.html";
 	}
 };
 
