@@ -231,7 +231,7 @@
 	  	var task = storageRef.put(file);;
 	  	imagen = imagen + 1;
 
-	  	if (imagen===1) {
+	  	if (imagen==1) {
 
 	  		var imagendb = firebase.database().ref('imagenes/'+UCedula).update({
   			
@@ -242,7 +242,7 @@
     		});
 
 
-	  	} else if (imagen===2) {
+	  	} else if (imagen==2) {
 
 	  		var imagendb = firebase.database().ref('imagenes/'+UCedula).update({
   			
@@ -252,7 +252,7 @@
     			alert(error.code);
     		});
 
-	  	} else if (imagen===3) {
+	  	} else if (imagen==3) {
 
 	  		var imagendb = firebase.database().ref('imagenes/'+UCedula).update({
   			
@@ -261,6 +261,8 @@
   			}).catch(function(error) {
     			alert(error.code);
     		});
+
+    		imagen = 0;
 
 	  	}
   		
