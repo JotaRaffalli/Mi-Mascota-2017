@@ -157,7 +157,9 @@
 	  			NombreUsuario : UNombre,
 	  			ApellidoUsuario : UApellido,
 	  			CedulaUsuario : UCedula,
-	  			TelfUsuario : UTelefono
+	  			TelfUsuario : UTelefono,
+	  			Admin : false,
+	  			Clasificado : false
 
 	  		}).catch(function(error) {
         		alert(error.code);
