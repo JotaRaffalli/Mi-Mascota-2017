@@ -30,7 +30,6 @@
 			
 </head>
 
-<body>
 
 	<!-- Barra de navegación -->
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -80,12 +79,18 @@
 	                <td>05/02/1995t</td>
 	                <td>Jota</td>
 	                <td>7</td>
-	            </tr>			  
+	            </tr>
+	        </tbody>
+	        </table>  
+
+	        	
+	        </div>
+
 	    </div>
 	  </main>
 	</div>
 
-
+	<script src="dependencies/Js/angular.js"></script>
 	
 	<!-- Jquery -->
 	<script src="dependencies/Js/jquery.js"></script>
@@ -93,13 +98,37 @@
 	<!-- Toaster -->
 	<script src="dependencies/Js/toastr.js"></script>
 
-	<!-- Firebase Extra -->
-	<script src="https://cdn.firebase.com/libs/angularfire/0.8.0/angularfire.min.js"></script>
-	<script src="https://cdn.firebase.com/js/simple-login/1.6.2/firebase-simple-login.js"></script>
+
+	<script >
+		
+
+console.log('hoola');
+
+var config = {
+	    apiKey: "AIzaSyCHy_xIdSxt0IAYknbnSufYHKLPlSebtD4",
+	    authDomain: "mi-mascota-2017.firebaseapp.com",
+	    databaseURL: "https://mi-mascota-2017.firebaseio.com",
+	    storageBucket: "mi-mascota-2017.appspot.com",
+	    messagingSenderId: "579979923419"
+	  };
+  firebase.initializeApp(config);
+
+firebase.database().ref('usuario/GV6i4HweY8TRipoyRUBitGCVTG52').on('value', function(snapshot) {
+    var obj = snapshot.val();
+  
+        console.log(obj);
+
+});
+    
+
+	</script>
+
+	
 	
 	<!-- Firebase app -->
-    <script src="dependencies/Js/FireApp.js"></script>
+ 
 	
+
 
 </body>
 </html>
