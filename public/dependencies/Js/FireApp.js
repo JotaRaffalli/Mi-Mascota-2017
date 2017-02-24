@@ -221,15 +221,49 @@
 
 	  var uploader = document.getElementById('uploader');
 	  var fileButton = document.getElementById('fileButton');
+	  var imagen = 0;
 
 	  fileButton.addEventListener('change', function(e) {
 
+	  	var UCedula = txtUCedula.value;
 	  	var file = e.target.files[0];
+	  	var storageRef = firebase.storage().ref().child('Imagenes/' + UCedula+'/'+file.name);
+	  	var task = storageRef.put(file);;
+	  	imagen = imagen + 1;
 
-	  	var storageRef = firebase.storage().ref('Imagenes/' + file.name);
+	  	if (imagen===1) {
 
-	  	var task = storageRef.put(file);
+	  		var imagendb = firebase.database().ref('imagenes/'+UCedula).update({
+  			
+  			imagen1 : file.name
 
+  			}).catch(function(error) {
+    			alert(error.code);
+    		});
+
+
+	  	} else if (imagen===2) {
+
+	  		var imagendb = firebase.database().ref('imagenes/'+UCedula).update({
+  			
+  			imagen2 : file.name
+
+  			}).catch(function(error) {
+    			alert(error.code);
+    		});
+
+	  	} else if (imagen===3) {
+
+	  		var imagendb = firebase.database().ref('imagenes/'+UCedula).update({
+  			
+  			imagen3 : file.name
+
+  			}).catch(function(error) {
+    			alert(error.code);
+    		});
+
+	  	}
+  		
 	  	task.on('state_changed',
 
 	  		function progress(snapshot){
@@ -242,8 +276,9 @@
 	  		},
 
 	  		function complete (){
-
 	  		}
 	  	)
+
 	  });
+
 }());
