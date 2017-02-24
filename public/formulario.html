@@ -28,9 +28,9 @@
 
 </head>
 
-<body >
+<body onload="estaLogeado()">
 
-<!-- Simple header with fixed tabs. -->
+<!-- Header -->
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
   	
   	<header class="mdl-layout__header">
@@ -47,11 +47,12 @@
   		<div class="mdl-layout__drawer">
     		<span class="mdl-layout-title"><img height="50" width="50" src="imagenes/animal.png">  <div id="correo" >Mi Mascota</div></span>
 	    <nav class="mdl-navigation">
+	    <a class="mdl-navigation__link" href="index.html" >Home</a>
 	      <a class="mdl-navigation__link" href="http://animals.tumblr.com/" target="_blank">Visitar Tumblr</a>
 	      <a class="mdl-navigation__link" href="">Ver historial</a>
 	      <a hidden id="btnLogin" >Iniciar sesión</a>
 	      <a hidden id="btnSignup" >Crear Cuenta</a>
-	      <a id="btnLogout" class="mdl-navigation__link" href="https://mi-mascota-2017.firebaseapp.com/">Cerrar Sesión</a>
+	      <a id="btnLogout" class="mdl-navigation__link" href="/index.html">Cerrar Sesión</a>
 	    </nav>
   		</div>
   	
@@ -60,14 +61,14 @@
     <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
 	    <div class="page-content">
 
-	    	<h5 align="center" style="margin: 20px 0px">Bienvenido al concurso de Mi Mascota 2017.<br> Por favor llene los campos a continuación y oprima enviar para hacer su inscripción.</h5>
+	    	<h4 align="center" style="padding-top: 50px"> Por favor llene los campos a continuación <br> Oprima enviar para hacer su inscripción.</h4>
 	    	
 	    	<div>
 				<div class="contenedor-formulario">
-				  <div class="wrap">
+				  <div class="wrap" >
 				    <form action="" class="formulario" name="formulario_registro" method="get">
 				      <div>
-				      	<h5 style="color: darkgreen" align="center">Datos del Usuario</h5>
+				      	<h5 style="color: darkgreen" align="center"><strong>Datos del Usuario</strong></h5>
 				        <div class="input-group">
 				          <input type="text" id="UNombre" name="nombre">
 				          <label class="label" for="nombre">Nombre:</label>
@@ -102,7 +103,7 @@
 				          <label class="label" for="nombre">Edad:</label>
 				        </div>
 				        <div class="input-group">
-				          <input type="text" id="PHistoria" name="nombre">
+				          <input type="text" id="PHistoria" maxlength="400" name="nombre" >
 				          <label class="label" for="nombre">Escribe una historia sobre tu Mascota:</label>
 				        </div>
 						<div class="input-group">
@@ -168,6 +169,15 @@
     <script src="dependencies/Js/app.js"></script>
 
     <script src="dependencies/Js/formulario.js"></script>
+
+    <script >
+function estaLogeado() {
+	var user = firebase.auth().currentUser;
+		if (user == null) {
+		  window.location = 'index.html';
+		}
+}
+</script>
 
 
 </body>
