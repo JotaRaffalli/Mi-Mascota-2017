@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-	<title>Login | Mi mascota 2017</title>
+	
+	<title>Ingresa | Mi Mascota 2017</title>
 
 	<!-- Escala Responsive -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,51 +23,55 @@
 	<!-- Firebase -->
 	<script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
 
-	<!-- Toaster -->
-	<link href="dependencies/Styles/toastr.css" rel="stylesheet"/>
-			
+	<link href="dependencies/Styles/formulario.css" rel="stylesheet"/>
+
+
 </head>
 
-<body>
+<body onload="uid()">
 
-	<!-- Barra de navegación -->
-	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-	  <header class="mdl-layout__header">
-	    <div class="mdl-layout__header-row">
-	      <!-- Titulo -->
-	      <span class="mdl-layout-title">Mi Mascota 2017 </span>
-	      <!-- Alinia la barra de navegación -->
-	      <div class="mdl-layout-spacer"></div>
-	      <!-- Se oculta la barra en pantallas pequeñas -->
-	      <nav class="mdl-navigation mdl-layout--large-screen-only">
-	       <a class="mdl-navigation__link" href="index.html" >Home</a>
-	        <a class="mdl-navigation__link" href="http://animals.tumblr.com/" target="_blank">Ver Tumblr</a>
-	        <a class="mdl-navigation__link" href="/historia.html">Ver historial</a>
-	        <a id="btnLogout" class="mdl-navigation__link" href="">Cerrar Sesión</a>
-	        <a hidden id="fileButton" >Crear Cuenta</a>
-	      </nav>
-	    </div>
-	  </header>
-	  <div class="mdl-layout__drawer">
-	    <span class="mdl-layout-title"><img height="50" width="50" src="imagenes/animal.png">  Mi Mascota</span>
+<script>
+	var uid= decodeURI(GET["uid"]);
+
+	function uid(){document.getElementById('id').innerHTML = uid}
+</script>
+
+<!-- Header -->
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
+  	
+  	<header class="mdl-layout__header">
+    	<div class="mdl-layout__header-row">
+    	<!-- Title -->
+      	<span class="mdl-layout-title">Menú</span>
+    	</div>
+    	<!-- Tabs -->
+    	<div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+      		<a href="#fixed-tab-1" class="mdl-layout__tab is-active">¡Inscríbete!</a>
+      		<a href="#fixed-tab-2" class="mdl-layout__tab">Estado de Inscripción</a>
+    	</div>
+  	</header>
+  		<div class="mdl-layout__drawer">
+    		<span class="mdl-layout-title"><img height="50" width="50" src="imagenes/animal.png">  <div id="correo" >Mi Mascota</div></span>
 	    <nav class="mdl-navigation">
 	    <a class="mdl-navigation__link" href="index.html" >Home</a>
 	      <a class="mdl-navigation__link" href="http://animals.tumblr.com/" target="_blank">Visitar Tumblr</a>
-	      <a class="mdl-navigation__link" href="/historia.html">Ver historial</a>
-	       <a hidden class="mdl-navigation__link" id=" fileButton" ></a>
-	     
+	      <a class="mdl-navigation__link" href="">Ver historial</a>
+	      <a hidden id="btnLogin" >Iniciar sesión</a>
+	      <a hidden id="btnSignup" >Crear Cuenta</a>
+	      <a id="btnLogout" class="mdl-navigation__link" href="/index.html">Cerrar Sesión</a>
 	    </nav>
-	  </div>
-	  <main class="mdl-layout__content">
+  		</div>
+  	
+  	<main class="mdl-layout__content">
+    
+    <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
 	    <div class="page-content">
-	<!-- Fin Barra de navegación -->	
 
-	    <!-- Formulario de Login -->
-	    	<div style="padding-top: 50px" align="center" class="mdl-layout mdl-js-layout mdl-color--grey-100">
+	    	<div  align="center" class="mdl-layout mdl-js-layout mdl-color--grey-100">
 				<main class="mdl-layout__content">
 					<div class="mdl-card mdl-shadow--6dp">
 						<div class="mdl-card__title mdl-color--primary mdl-color-text--white">
-							<h3 class="mdl-card__title-text"><i class="material-icons">pets</i>&nbsp;Mi Mascota 2017</h3>
+							<h3 class="mdl-card__title-text"><i class="material-icons">pets</i>&nbsp;<p id="id"></p></h3>
 						</div>
 				  	<div class="mdl-card__supporting-text">
 							<form>
@@ -88,12 +92,25 @@
 					</div>
 				</main>
 			</div>	
-	    <!-- Fin Formulario de Login -->
+	    	
 
 	    </div>
-	  </main>
-	</div>
+    </section>
+    
+    <section class="mdl-layout__tab-panel" id="fixed-tab-2">
+	    <div class="page-content">
+	      	
+	    </div>
+    </section>
+    
+    <section class="mdl-layout__tab-panel" id="fixed-tab-3">
+	    <div class="page-content">
+	    	
+	    </div>
+    </section>
 
+  </main>
+</div>
 
 	<!-- Angular Material Design -->
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
@@ -118,6 +135,10 @@
 	
 	<!-- Angular app -->
     <script src="dependencies/Js/app.js"></script>
+
+    <script src="dependencies/Js/formulario.js"></script>
+
+
 
 </body>
 </html>

@@ -184,6 +184,9 @@
 	  // -------Verificar estado-------
 	  auth.onAuthStateChanged(function(user) {
 	  if (user) {
+
+	  	$('#t1').show();
+
 	  	$('#btnLogout').show();
 	    console.log(user);
 	    console.log("Sesión Iniciada:  "+user.email);
@@ -191,6 +194,7 @@
 
 	  } else {
 	  	$('#btnLogout').hide();
+	  	$('#t1').hide();
 	    console.log('sesion no iniciada');
 
 	  }
