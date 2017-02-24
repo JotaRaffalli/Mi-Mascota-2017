@@ -157,13 +157,15 @@
 	  			NombreUsuario : UNombre,
 	  			ApellidoUsuario : UApellido,
 	  			CedulaUsuario : UCedula,
-	  			TelfUsuario : UTelefono
+	  			TelfUsuario : UTelefono,
+	  			Admin : false,
+	  			Clasificado : false
 
 	  		}).catch(function(error) {
         		alert(error.code);
         	});
 
-        	firebase.database().ref('mascota/'+UCedula).set({
+        	firebase.database().ref('mascota/'+user.uid).set({
 	  			
 	  			NombreMascota : PNombre,
 	  			EdadMascota : PEdad,
@@ -225,15 +227,15 @@
 
 	  fileButton.addEventListener('change', function(e) {
 
-	  	var UCedula = txtUCedula.value;
+	  	var user = auth.currentUser;
 	  	var file = e.target.files[0];
-	  	var storageRef = firebase.storage().ref().child('Imagenes/' + UCedula+'/'+file.name);
+	  	var storageRef = firebase.storage().ref().child('Imagenes/' + user.uid+'/'+file.name);
 	  	var task = storageRef.put(file);;
 	  	imagen = imagen + 1;
 
-	  	if (imagen===1) {
+	  	if (imagen==1) {
 
-	  		var imagendb = firebase.database().ref('imagenes/'+UCedula).update({
+	  		var imagendb = firebase.database().ref('imagenes/'+user.uid).update({
   			
   			imagen1 : file.name
 
@@ -242,9 +244,9 @@
     		});
 
 
-	  	} else if (imagen===2) {
+	  	} else if (imagen==2) {
 
-	  		var imagendb = firebase.database().ref('imagenes/'+UCedula).update({
+	  		var imagendb = firebase.database().ref('imagenes/'+user.uid).update({
   			
   			imagen2 : file.name
 
@@ -252,15 +254,17 @@
     			alert(error.code);
     		});
 
-	  	} else if (imagen===3) {
+	  	} else if (imagen==3) {
 
-	  		var imagendb = firebase.database().ref('imagenes/'+UCedula).update({
+	  		var imagendb = firebase.database().ref('imagenes/'+user.uid).update({
   			
   			imagen3 : file.name
 
   			}).catch(function(error) {
     			alert(error.code);
     		});
+
+    		imagen = 0;
 
 	  	}
   		
