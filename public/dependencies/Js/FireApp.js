@@ -85,9 +85,11 @@
 
 	  // -------Evento de Signup-------
 	  btnSignup.addEventListener("click" , function(){
+	  	
 	  	// Valores de los campos
 	  	var email = txtEmail.value;
 	  	var contraseña = txtContraseña.value;
+
 	  	// Verifica Campos
 	  	if (!email) {
 	        toastr.error('Se requiere un correo');
@@ -98,12 +100,15 @@
 	        txtContraseña.focus();
 	        txtContraseña.parentNode.classList.add('is-dirty');                        
       	} else {
+        
         // Crea el usuario y asigna su correo y id
-
-
         var promesa = auth.createUserWithEmailAndPassword(email, contraseña).then(function(){
         	var user = auth.currentUser;
-        	firebase.database().ref('usuario/'+user.uid).set({correo : email}).catch(function(error) {
+        	firebase.database().ref('usuario/'+user.uid).set({
+
+        		correo : email
+
+        	}).catch(function(error) {
         		alert(error.code);
         	});
         });
@@ -144,16 +149,24 @@
 	  		var PHistoria = txtPHistoria.value;
 	  		var PAdopcion = txtPAdopcion.value;
 
-	  		firebase.database().ref('usuario/'+user.uid).push({
+	  		firebase.database().ref('usuario/'+user.uid).update({
 	  			
 	  			NombreUsuario : UNombre,
 	  			ApellidoUsuario : UApellido,
 	  			CedulaUsuario : UCedula,
-	  			TelfUsuario : UTelefono,
+	  			TelfUsuario : UTelefono
+
+	  		}).catch(function(error) {
+        		alert(error.code);
+        	});
+
+        	firebase.database().ref('mascota/'+UCedula).set({
+	  			
 	  			NombreMascota : PNombre,
 	  			EdadMascota : PEdad,
 	  			Historia : PHistoria,
-	  			Adopcion : PAdopcion
+	  			Adopcion : PAdopcion,
+	  			correo : user.email 
 
 	  		}).catch(function(error) {
         		alert(error.code);
