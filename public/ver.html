@@ -65,34 +65,78 @@
     <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
 	    <div class="page-content">
 
-	    	<div  align="center" class="mdl-layout mdl-js-layout mdl-color--grey-100">
+	    	<div  style="padding-top: 35px"><div style="margin-left: 320px"  class="mdl-layout mdl-js-layout mdl-color--grey-100">
 				<main class="mdl-layout__content">
 					<div class="mdl-card mdl-shadow--6dp">
 						<div class="mdl-card__title mdl-color--primary mdl-color-text--white">
-							<h3 class="mdl-card__title-text"><i class="material-icons">pets</i>&nbsp;<p id="id"></p></h3>
+							<h3 class="mdl-card__title-text"><i class="material-icons">pets</i>&nbsp;Usuario</h3>
 						</div>
 				  	<div class="mdl-card__supporting-text">
 							<form>
 								<div class="mdl-textfield mdl-js-textfield">
-									<input class="mdl-textfield__input" type="text" id="email" />
-									<label class="mdl-textfield__label" for="username">Introduce tu correo electrónico.</label>
+									<input class="mdl-textfield__input" type="text" id="NombreUsuario" />
+									
 								</div>
 								<div class="mdl-textfield mdl-js-textfield">
-									<input class="mdl-textfield__input" type="password" id="contraseña" />
-									<label class="mdl-textfield__label" for="userpass">Contraseña</label>
+									<input class="mdl-textfield__input" type="text" id="ApellidoUsuario" />
+									
 								</div>
+								<div class="mdl-textfield mdl-js-textfield">
+									<input class="mdl-textfield__input" type="text" id="CedulaUsuario" />
+									
+								</div>
+								<div class="mdl-textfield mdl-js-textfield">
+									<input class="mdl-textfield__input" type="text" id="TelfUsuario" />
+									
+								</div>
+
 							</form>
 						</div>
 						<div class="mdl-card__actions mdl-card--border">
-							<button id="btnLogin" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Iniciar sesión</button>
-							<button id="btnSignup" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Crear Cuenta</button>
+							<button id="btnCalifica" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Califica</button>
+							<button id="btnNoCalifica" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">No Califica</button>
+						</div>
+					</div>
+				</main>
+			</div>	
+
+			<div style="margin-left: 710px" class="mdl-layout mdl-js-layout mdl-color--grey-100">
+				<main class="mdl-layout__content">
+					<div class="mdl-card mdl-shadow--6dp">
+						<div class="mdl-card__title mdl-color--primary mdl-color-text--white">
+							<h3 class="mdl-card__title-text"><i class="material-icons">pets</i>&nbsp;Mascota</h3>
+						</div>
+				  	<div class="mdl-card__supporting-text">
+							<form>
+								<div class="mdl-textfield mdl-js-textfield">
+									<input class="mdl-textfield__input" type="text" id="NombreMascota" />
+									
+								</div>
+								<div class="mdl-textfield mdl-js-textfield">
+									<input class="mdl-textfield__input" type="text" id="EdadMascota" />
+									
+								</div>
+								<div class="mdl-textfield mdl-js-textfield">
+									<input class="mdl-textfield__input" type="text" id="Adopcion" />
+									
+								</div>
+								<div class="mdl-textfield mdl-js-textfield">
+									<input class="mdl-textfield__input" type="text" id="Adopcion" />
+									
+								</div>
+								<div class="mdl-textfield mdl-js-textfield">
+									<input class="mdl-textfield__input" type="text" id="Historia" />
+									
+								</div>
+
+							</form>
 						</div>
 					</div>
 				</main>
 			</div>	
 	    	
 
-	    </div>
+	    </div></div>
     </section>
     
     <section class="mdl-layout__tab-panel" id="fixed-tab-2">
@@ -158,21 +202,31 @@
           var cedula= snapshot.child("CedulaUsuario").val();
           var tel= snapshot.child("TelfUsuario").val();
           var email= snapshot.child("correo").val();
+
           console.log(email);
           
-          //var query2 = firebase.database().ref("mascota")
-          var query2 = firebase.database().ref().child('mascota').orderByChild('correo').equalTo(email);
-           
-           //query2.once("value").then(function(snapshot2){
-          	//var n = snapshot2.child('NombreMascota').val();
-            // var nombreMascota = snapshot2.child("NombreMascota").val();
-            // var edadMascota = snapshot2.child("EdadMascota").val();
-            // var historia = snapshot2.child("Historia").val();
+          var query2 = firebase.database().ref("mascota/"+uid);
+          query2.once("value").then(function(snapshot2){
+            var NombreMascota = snapshot2.child("NombreMascota").val();
+            var EdadMascota = snapshot2.child("EdadMascota").val();
+            var Adopcion = snapshot2.child("Adopcion").val();
+            var Historia = snapshot2.child("Historia").val();
+            console.log(NombreMascota);
 
-            console.log(query2);
+          document.getElementById('NombreMascota').value  = NombreMascota;
+          document.getElementById('EdadMascota').value  = EdadMascota;
+          document.getElementById('Adopcion').value  = Adopcion;
+          document.getElementById('Historia').value  = Historia;
 
-           });          
-        //});
+          });  
+
+          document.getElementById('NombreUsuario').value  = first;
+          document.getElementById('ApellidoUsuario').value  = last;
+          document.getElementById('CedulaUsuario').value  = cedula;
+          document.getElementById('TelfUsuario').value  = tel;
+
+
+        });
 
 
 	
