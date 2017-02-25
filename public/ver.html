@@ -28,13 +28,9 @@
 
 </head>
 
-<body onload="uid()">
+<body>
 
-<script>
-	var uid= decodeURI(GET["uid"]);
 
-	function uid(){document.getElementById('id').innerHTML = uid}
-</script>
 
 <!-- Header -->
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
@@ -59,6 +55,8 @@
 	      <a hidden id="btnLogin" >Iniciar sesión</a>
 	      <a hidden id="btnSignup" >Crear Cuenta</a>
 	      <a id="btnLogout" class="mdl-navigation__link" href="/index.html">Cerrar Sesión</a>
+	      <a hidden id="fileButton" >Crear Cuenta</a>
+	      
 	    </nav>
   		</div>
   	
@@ -136,9 +134,49 @@
 	<!-- Angular app -->
     <script src="dependencies/Js/app.js"></script>
 
-    <script src="dependencies/Js/formulario.js"></script>
+<script>
+
+	function getParameterByName(name, url) {
+    if (!url) {
+      url = window.location.href;
+    }
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+      var uid = getParameterByName('uid');
+      console.log(uid);
+   
+      var query = firebase.database().ref("usuario/"+uid);
+      query.once("value").then(function(snapshot) {
+          var first= snapshot.child("NombreUsuario").val();
+          var last= snapshot.child("ApellidoUsuario").val();
+          var cedula= snapshot.child("CedulaUsuario").val();
+          var tel= snapshot.child("TelfUsuario").val();
+          var email= snapshot.child("correo").val();
+          console.log(email);
+          
+          //var query2 = firebase.database().ref("mascota")
+          var query2 = firebase.database().ref().child('mascota').orderByChild('correo').equalTo(email);
+           
+           //query2.once("value").then(function(snapshot2){
+          	//var n = snapshot2.child('NombreMascota').val();
+            // var nombreMascota = snapshot2.child("NombreMascota").val();
+            // var edadMascota = snapshot2.child("EdadMascota").val();
+            // var historia = snapshot2.child("Historia").val();
+
+            console.log(query2);
+
+           });          
+        //});
 
 
+	
+</script>
 
 </body>
 </html>
