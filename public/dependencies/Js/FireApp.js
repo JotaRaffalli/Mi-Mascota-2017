@@ -230,43 +230,10 @@
 	  	var user = auth.currentUser;
 	  	var file = e.target.files[0];
 	  	var storageRef = firebase.storage().ref().child('Imagenes/' + user.uid+'/'+file.name);
-	  	var task = storageRef.put(file);;
+	  	var task = storageRef.put(file);
 	  	imagen = imagen + 1;
 
-	  	if (imagen==1) {
-
-	  		var imagendb = firebase.database().ref('imagenes/'+user.uid).update({
-  			
-  			imagen1 : file.name
-
-  			}).catch(function(error) {
-    			alert(error.code);
-    		});
-
-
-	  	} else if (imagen==2) {
-
-	  		var imagendb = firebase.database().ref('imagenes/'+user.uid).update({
-  			
-  			imagen2 : file.name
-
-  			}).catch(function(error) {
-    			alert(error.code);
-    		});
-
-	  	} else if (imagen==3) {
-
-	  		var imagendb = firebase.database().ref('imagenes/'+user.uid).update({
-  			
-  			imagen3 : file.name
-
-  			}).catch(function(error) {
-    			alert(error.code);
-    		});
-
-    		imagen = 0;
-
-	  	}
+	  	
   		
 	  	task.on('state_changed',
 
@@ -280,8 +247,49 @@
 	  		},
 
 	  		function complete (){
-	  		}
+	  			
+	  			var url = task.snapshot.downloadURL;
+
+	  			if (imagen==1) {
+
+	  				var imagendb = firebase.database().ref('imagenes/'+user.uid).update({
+  			
+  						imagen1 : file.name,
+  						url1 : url
+
+  					}).catch(function(error) {
+    					alert(error.code);
+    				});
+
+	  			} else if (imagen==2) {
+
+	  				var imagendb = firebase.database().ref('imagenes/'+user.uid).update({
+  			
+  						imagen2 : file.name,
+  						url2 : url
+
+  					}).catch(function(error) {
+    					alert(error.code);
+    				});
+
+	  			} else if (imagen==3) {
+
+	  				var imagendb = firebase.database().ref('imagenes/'+user.uid).update({
+  			
+  						imagen3 : file.name,
+  						url3 : url
+
+  					}).catch(function(error) {
+    					alert(error.code);
+    				});
+
+    					imagen = 0;
+
+			  	}
+	  		}	
 	  	)
+
+	  	
 
 	  });
 

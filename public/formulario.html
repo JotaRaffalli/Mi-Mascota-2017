@@ -116,7 +116,7 @@
 						<br><br>
 						<progress value="0" max="100" id="uploader">0%</progress>
 						<br>
-						<input type="file" value="upload" id="fileButton" />
+						<input type="file" value="upload" id="fileButton" multiple="" />
 						<br><br>
 
 
@@ -128,6 +128,7 @@
 		    </div>	
 
 		    <br><br>
+
 	    </div>
     </section>
     
@@ -173,6 +174,22 @@
     <script src="dependencies/Js/formulario.js"></script>
 
 
+    <script type="text/javascript">
+    
+	  	var db = firebase.database();
+    	var user = auth.currentUser;
+    	var auth = firebase.auth();
 
+    	var query = firebase.database().ref('imagenes/'+user.uid);
+    	query.once("value").then(function(snapshot2) {
+    		var url = snapshot2.child("url1").val();
+
+    		$("imagenes").html("<img src="+url+" href="+url+"> ");
+    	});
+
+    
+
+
+    </script>
 </body>
 </html>
