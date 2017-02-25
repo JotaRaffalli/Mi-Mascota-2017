@@ -136,7 +136,20 @@
 			</div>	
 	    	
 
-	    </div></div>
+	    	<button id="btnActualizar" style="margin-left: 75px;" onclick="Update()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+			  Actualizar
+			</button>
+
+			
+
+	    </div></div><br>
+	    <button id="btnCalifica" style="margin-left: 75px;" onclick="Clasificar()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+			  Clasificar
+			</button>
+			<br><br>
+	    <button id="btnNoCalifica" style="margin-left: 75px;"  class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+			  Negar
+			</button>
     </section>
     
     <section class="mdl-layout__tab-panel" id="fixed-tab-2">
@@ -179,6 +192,8 @@
     <script src="dependencies/Js/app.js"></script>
 
 <script>
+
+
 
 	function getParameterByName(name, url) {
     if (!url) {
@@ -229,6 +244,94 @@
         });
 
 
+
+      function Update () 
+      {
+
+      	// Formulario form: Obtener los elementos
+	  var UNombre = document.getElementById("NombreUsuario").value;
+  	  var UApellido = document.getElementById("ApellidoUsuario").value;
+  	  var UCedula = document.getElementById("CedulaUsuario").value;
+	  var UTelefono = document.getElementById("TelfUsuario").value;
+	  var txtPNombre = document.getElementById("NombreMascota").value;
+	  var txtPEdad = document.getElementById("EdadMascota").value;
+	  var txtPHistoria = document.getElementById("Adopcion").value;
+	  var txtPAdopcion = document.getElementById("Historia").value;
+
+      	firebase.database().ref('usuario/'+uid).update({
+	  			
+	  			NombreUsuario : UNombre,
+	  			ApellidoUsuario : UApellido,
+	  			CedulaUsuario : UCedula,
+	  			TelfUsuario : UTelefono,
+
+
+	  		}).then(function() {
+			  // Exito
+			  alert("Update Completado");
+			}).catch(function(error) {
+        		alert(error.code);
+        	});
+
+	  	firebase.database().ref('mascota/'+uid).update({
+	  			
+	  			NombreMascota : txtPNombre,
+	  			EdadMascota : txtPEdad,
+	  			Adopcion : txtPHistoria,
+	  			Historia : txtPAdopcion,
+
+
+	  		}).catch(function(error) {
+        		alert(error.code);
+        	});
+
+      }
+
+      function Clasificar () 
+      {
+      	var referencia = firebase.database().ref("usuarios/"+uid);
+		referencia.once("value").then(function(snapshot) {
+		var EsAdmin = snapshot.child("Admin").val();
+      	if (EsAdmin) 
+      	{
+      		firebase.database().ref("usuario/"+uid).update({
+			Clasificado: true,
+			});
+			alert('Clasificado');
+      	}
+      	else {alert('No tienes privilegios para hacer eso');}
+      });
+      	
+
+
+      }
+
+$('#btnNoCalifica').click(function(){
+
+var referencia = firebase.database().ref("usuarios/"+uid);
+		referencia.once("value").then(function(snapshot) {
+		var EsAdmin = snapshot.child("Admin").val();
+      	if (EsAdmin) 
+      	{
+	var query = firebase.database().ref("usuario/"+uid);
+      query.once("value").then(function(snapshot) {
+	var email= snapshot.child("correo").val();
+    $(location).attr('href', 'mailto:'+email+'?subject='
+                             + encodeURIComponent("Rechazado!")
+                             + "&body=" 
+                             + encodeURIComponent("Fuiste rechazado del concurso mi mascota y yo ;(")
+    );
+
+});
+			alert('Clasificado');
+      	}
+      	else {alert('No tienes privilegios para hacer eso');}
+      });
+      	
+
+
+
+});
 	
 </script>
 

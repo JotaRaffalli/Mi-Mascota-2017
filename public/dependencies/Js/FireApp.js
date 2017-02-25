@@ -60,7 +60,27 @@
 	        var promesa = auth.signInWithEmailAndPassword(email, contraseña);
 	        promesa.then(function(firebaseUser) {
 			  // Exito 
-			  window.location = 'formulario.html';
+
+			var uid = firebaseUser.uid;
+
+			var ref = firebase.database().ref("usuario/"+uid);
+			ref.once("value").then(function(snapshot) {
+			var YaEnvio = snapshot.child("Envio").val();
+				console.log(YaEnvio);
+
+
+			  if (YaEnvio) 
+			  {
+			  	window.location = 'ver.html?uid='+uid;
+
+			  } else
+			  {
+			   window.location = 'formulario.html';
+			  }
+			  	})
+
+
+			 
 			});
 		  	promesa.catch(function(error) {
 		  		//Error
@@ -117,7 +137,10 @@
         });
 	  	promesa.then(function(firebaseUser) {
 			  // Exito 
-			  window.location = 'formulario.html';
+
+				window.location = 'formulario.html';
+
+			  
 			});
 		promesa.catch(function(error) {
 		  		//Error
@@ -187,7 +210,29 @@
 	  auth.onAuthStateChanged(function(user) {
 	  if (user) {
 
-	  	$('#t1').show();
+		var uid = user.uid;
+
+		var ref = firebase.database().ref("usuario/"+uid);
+		ref.once("value").then(function(snapshot) {
+			var EsAdmin = snapshot.child("Admin").val();
+
+			if(EsAdmin)
+			{
+				$("#btnActualizar").hide();
+				$("#btnCalifica").show();
+				$("#btnNoCalifica").show();
+				$('#t1').show();
+			} else
+			{
+				$("#btnActualizar").show();				
+				$("#btnCalifica").hide();
+				$("#btnNoCalifica").hide();
+				$('#t1').hide();
+
+
+			}
+		});
+	  	
 
 	  	$('#btnLogout').show();
 	    console.log(user);
@@ -197,6 +242,8 @@
 	  } else {
 	  	$('#btnLogout').hide();
 	  	$('#t1').hide();
+	  	$("#btnCalifica").hide();
+		$("#btnNoCalifica").hide();
 	    console.log('sesion no iniciada');
 
 	  }
