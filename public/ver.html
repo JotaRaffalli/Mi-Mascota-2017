@@ -52,6 +52,7 @@
 	    <a class="mdl-navigation__link" href="index.html" >Home</a>
 	      <a class="mdl-navigation__link" href="http://animals.tumblr.com/" target="_blank">Visitar Tumblr</a>
 	      <a class="mdl-navigation__link" href="">Ver historial</a>
+	      <a id="dash" class="mdl-navigation__link" href="dashboard.html">Administracion</a>
 	      <a hidden id="btnLogin" >Iniciar sesión</a>
 	      <a hidden id="btnSignup" >Crear Cuenta</a>
 	      <a id="btnLogout" class="mdl-navigation__link" href="/index.html">Cerrar Sesión</a>
@@ -147,7 +148,7 @@
 			  Clasificar
 			</button>
 			<br><br>
-	    <button id="btnNoCalifica" style="margin-left: 75px;"  class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+	    <button id="btnNoCalifica" style="margin-left: 75px;" onclick="No()"  class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
 			  Negar
 			</button>
     </section>
@@ -192,6 +193,11 @@
     <script src="dependencies/Js/app.js"></script>
 
 <script>
+
+
+
+			
+
 
 
 
@@ -245,6 +251,24 @@
 
 
 
+      var ref = firebase.database().ref("usuario/"+uid);
+			ref.once("value").then(function(snapshot) {
+			var EsAdmin = snapshot.child("Admin").val();
+				if (EsAdmin) 
+				{
+
+					$('#dash').show();
+
+				}
+				else
+				{
+					$('#dash').hide();
+				}
+			});
+
+
+
+
       function Update () 
       {
 
@@ -289,7 +313,7 @@
 
       function Clasificar () 
       {
-      	var referencia = firebase.database().ref("usuarios/"+uid);
+      	var referencia = firebase.database().ref("usuario/"+uid);
 		referencia.once("value").then(function(snapshot) {
 		var EsAdmin = snapshot.child("Admin").val();
       	if (EsAdmin) 
@@ -306,32 +330,36 @@
 
       }
 
-$('#btnNoCalifica').click(function(){
-
-var referencia = firebase.database().ref("usuarios/"+uid);
-		referencia.once("value").then(function(snapshot) {
+ function No () 
+      {
+	console.log("hola");
+	var referencia = firebase.database().ref("usuario/"+uid);
+	referencia.once("value").then(function(snapshot) 
+	{
 		var EsAdmin = snapshot.child("Admin").val();
       	if (EsAdmin) 
       	{
-	var query = firebase.database().ref("usuario/"+uid);
-      query.once("value").then(function(snapshot) {
-	var email= snapshot.child("correo").val();
-    $(location).attr('href', 'mailto:'+email+'?subject='
-                             + encodeURIComponent("Rechazado!")
-                             + "&body=" 
-                             + encodeURIComponent("Fuiste rechazado del concurso mi mascota y yo ;(")
-    );
+			var query = firebase.database().ref("usuario/"+uid);
+		    query.once("value").then(function(snapshot) 
+		    {
+			var email= snapshot.child("correo").val();
+		    $(location).attr('href', 'mailto:'+email+'?subject='
+		                             + encodeURIComponent("Rechazado!")
+		                             + "&body=" 
+		                             + encodeURIComponent("Fuiste rechazado del concurso mi mascota.")
+		    );
 
-});
-			alert('Clasificado');
+			}).catch(function(error) {
+        		alert(error.code);
+        	});
+			
+			alert('Enviado');
       	}
-      	else {alert('No tienes privilegios para hacer eso');}
-      });
-      	
-
-
-
-});
+      	else {
+      		alert('No tienes privilegios para hacer eso');
+      	}
+    });
+}
 	
 </script>
 

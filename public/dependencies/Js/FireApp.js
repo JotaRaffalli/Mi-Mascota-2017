@@ -66,7 +66,7 @@
 			var ref = firebase.database().ref("usuario/"+uid);
 			ref.once("value").then(function(snapshot) {
 			var YaEnvio = snapshot.child("Envio").val();
-				console.log(YaEnvio);
+			console.log(YaEnvio);
 
 
 			  if (YaEnvio) 
@@ -129,7 +129,11 @@
         	var user = auth.currentUser;
         	firebase.database().ref('usuario/'+user.uid).set({
 
-        		correo : email
+        		correo : email,
+        		Admin : false, 
+	  			Clasificado : false,
+	  			Envio : false
+
 
         	}).catch(function(error) {
         		alert(error.code);
@@ -182,7 +186,8 @@
 	  			CedulaUsuario : UCedula,
 	  			TelfUsuario : UTelefono,
 	  			Admin : false,
-	  			Clasificado : false
+	  			Clasificado : false,
+	  			Envio : true
 
 	  		}).catch(function(error) {
         		alert(error.code);
@@ -200,7 +205,7 @@
         		alert(error.code);
         	});
 
-        	//window.location = 'index.html';
+        	window.location = 'index.html';
 	  	});
 		};
 	  	
@@ -240,7 +245,8 @@
 	    //toastr.success('Sesión Iniciada');
 
 	  } else {
-	  	$('#btnLogout').hide();
+	  	
+	  	
 	  	$('#t1').hide();
 	  	$("#btnCalifica").hide();
 		$("#btnNoCalifica").hide();
